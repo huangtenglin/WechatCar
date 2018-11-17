@@ -1,0 +1,33 @@
+{
+  "pages": [
+    "pages/cars/cars",
+    "pages/home/home",
+    "pages/fujiadai/fujiadai",
+    "pages/cars2/cars2"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#000000"
+  },
+  "tabBar": {
+    "selectedColor": "#ffe45f",
+    "background":"#000000",
+    "position":"bottom",
+    "list": [
+      {
+        "pagePath": "pages/cars/cars",
+        "selectedIconPath": "/images/imgs/carsLogoActive.png",
+        "iconPath": "/images/imgs/carsLogo.png",
+        "text": "车贷计算器"
+      },
+      {
+        "pagePath": "pages/fujiadai/fujiadai",
+        "selectedIconPath": "/images/imgs/calculateActive.png",
+        "iconPath": "/images/imgs/calculate.png",
+        "text": "附加贷计算器"
+      }
+    ]
+  }
+}

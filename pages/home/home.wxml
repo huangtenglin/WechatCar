@@ -1,0 +1,292 @@
+<view style="position:relative;height:100%;" catchtap='yincanxiansyuegong'>
+  <image src='/images/imgs/bg001.jpg' style='width:100%;' class='bg' wx:if="{{carsList}}"></image>
+  <view class="_cart_header">
+    <navigator url="/pages/cars2/cars2" class="cart_header_title2">
+      <view class='button'>车型</view>
+      <view class="text2">{{produceName}}</view>
+      <image src='/images/imgs/tiaozhuan@2x.png' alt='更多' class='arrow' width="9px" height="16px"></image>
+    </navigator>
+    <view class='cart_header_title3'>
+      <view class="cart_header_title3_left">指导价:{{luochejiage}}</view>
+      <view class="cart_header_title3_right">
+        <view class='baojia'>报价:</view>
+        <input type='number' value='{{youhuijia?youhuijia:luochejiage}}' class='shurukuan' bindblur='getPrice' />
+        <image src="/images/imgs/xiugai002.png" alt="修改" mode='aspectFit' bindtap='xiugai'></image>
+      </view>
+    </view>
+    <view class='cart_ul_box'>
+      <view class='cart_ul_box_title'>
+        <view class='cart_ul_box_title_left'>
+          <view class='span_left'>
+            总首付:
+          </view>
+          <view class="span_right" wx:if="{{list}}" style="position: relative">
+            <view class='shoufu'>{{fnzongshoufu}}</view>
+            <view class="yuan" wx:if="{{carsList}}">元</view>
+            <image class="icon" style="position: absolute;" wx:if="{{carsList}}" src='/images/imgs/wenhao@2x.png' catchtap='tanchu'></image>
+            <view class='xinzhuang' wx:if="{{istanchu}}">
+              总首付 = 首付+购置税+其他
+              <image src='/images/imgs/xianzhuan.png' mode='widthFix'></image>
+            </view>
+          </view>
+        </view>
+        <view class='cart_ul_box_title_right'>
+          <view class="span_left">月供:</view>
+          <view class="span_right">{{yuegongjieguo}}</view>
+          <view class="yuan">元</view>
+          <image class="icon" src='/images/imgs/wenhao@2x.png' catchtap="xianshiyuegong" wx:if="{{listCar[daikuancurrentIndex]['productCode'] =='xxx003'}}"></image>
+          <view class="xianshiyuegong" wx:if="{{isxianshiyuegong}}">
+            <image src='/images/imgs/xianzhuan002.png' class='image'></image>
+            <view class="span_child">第一年:{{yuegongjieguo}}</view>
+            <view class="span_child" wx:if="{{diernianyuegong}}">第二年:{{diernianyuegong}}</view>
+            <view class="span_child" wx:if="{{disannianyueyong}}">第三年:{{disannianyueyong}}</view>
+            <view class="span_child" wx:if="{{disinianyuegong}}">第四年:{{disinianyuegong}}</view>
+            <view class="span_child" wx:if="{{diwunianyuegong}}">第五年:{{diwunianyuegong}}</view>
+          </view>
+        </view>
+      </view>
+      <view class='cart_ul_box_content'>
+        <view class="cart_ul_box_content_child">
+          <text class="p1">贷款金额</text>
+          <view class="p2">{{daikuanjiner}}
+            <text style="font-size:13px; margin-left:-7rpx;">元</text>
+          </view>
+        </view>
+        <view class="cart_ul_box_content_child">
+          <text class="p1">利息</text>
+          <view class="p2">{{lixi}}
+            <text style="font-size:13px; margin-left:-7rpx;">元</text>
+          </view>
+        </view>
+        <view class="cart_ul_box_content_child">
+          <view class="p1">利率</view>
+          <view class="p2">{{qishulixi}}%</view>
+        </view>
+        <view class="cart_ul_box_content_child">
+          <view class="p1"
+               wx:if="{{listCar && listCar[daikuancurrentIndex] && listCar[daikuancurrentIndex]['productCode'] ==='xxx003'}}">
+            年度递减
+          </view>
+          <view class="p1"
+                wx:elif="{{listCar && listCar[daikuancurrentIndex] && listCar[daikuancurrentIndex]['productCode'] ==='xxx005'}}">
+            尾款
+          </view>
+          <view class="p1"
+                wx:elif="{{listCar && listCar[daikuancurrentIndex] && listCar[daikuancurrentIndex]['productCode'] ==='xxx001'}}">
+            尾款
+          </view>
+          <view class="p1" wx:else>
+            年度还款
+          </view>
+
+
+          <view class="p2">{{nianduhuakuan}}
+            <text style="font-size:13px;margin-left:-7rpx;">元</text>
+          </view>
+        </view>
+        <view class="cart_ul_box_content_child">
+          <text class="p1">购置税</text>
+          <view class="p2" wx:if="{{list}}">{{gouzhishui}}
+            <text style="font-size:13px; margin-left:-7rpx;">元</text>
+          </view>
+        </view>
+        <view class="cart_ul_box_content_child">
+          <view class="p1">期数</view>
+          <view class="p2">{{qishu}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="_span_price">
+    <view class="_span_price_car">
+      <view class="_text">其他费用(上牌费+精品+手续费+保险)</view>
+      <view class="_cart_price">
+        {{qitafeiyong}}
+        <!-- <view class="yuan">元</view> -->
+      </view>
+    </view>
+    <view class="_span_arrow" bindtap='fn_car_tax_arrow'>
+      <image src="/images/imgs/ArrowDown002.png" alt="更多" style='width:15px;height:8px;'></image>
+    </view>
+  </view>
+  <view class='_car_tax' wx:if="{{car_tax}}">
+    <view class='_car_tax_content'>
+      <view class="_car_tax_content_div">
+        <view class="_car_tax_content_div_left">
+          <view class="_text">上牌费用</view>
+          <view class="_logo">
+            <input type='number' value="{{daikuan['priceNumber']}}" class='shurukuan' placeholder='请输入' 
+              bindblur='shangpaifeiyong' bindfocus="shangpaifeiyong2"
+            />
+          </view>
+        </view>
+        <view class="_car_tax_content_div_right">
+          <image src="/images/imgs/xiugai002.png" alt="修改" style='width:15px;height:18px;'></image>
+        </view>
+      </view>
+      <view class="_car_tax_content_div">
+        <view class="_car_tax_content_div_left">
+          <view class="_text">精品</view>
+          <view class="_logo">
+            <input type='number' value="{{daikuan['priceNumber2']}}" class='shurukuan' id='youhuijia' placeholder='请输入' 
+              bindblur='jinping' bindfocus="jinping2"
+            />
+          </view>
+        </view>
+        <view class="_car_tax_content_div_right">
+          <image src="/images/imgs/xiugai002.png" alt="修改" style='width:15px;height:18px;'></image>
+        </view>
+      </view>
+      <view class="_car_tax_content_div">
+        <view class="_car_tax_content_div_left">
+          <view class="_text">保险</view>
+          <view class="_logo">
+            <input type='number' value="{{daikuan['priceNumber3']}}" class='shurukuan' id='youhuijia' placeholder='请输入' 
+              bindblur='baoxian' bindfocus="baoxian2"
+            />
+          </view>
+        </view>
+        <view class="_car_tax_content_div_right">
+          <image src="/images/imgs/xiugai002.png" alt="修改" style='width:15px;height:18px;'></image>
+        </view>
+      </view>
+      <view class="_car_tax_content_div">
+        <view class="_car_tax_content_div_left">
+          <view class="_text">手续费用</view>
+          <view class="_logo">
+            <input type='number' value="{{daikuan['priceNumber4']}}" class='shurukuan' id='youhuijia' placeholder='请输入' 
+              bindblur='shouxufeiyong' bindfocus="shouxufeiyong2"
+            />
+          </view>
+        </view>
+        <view class="_car_tax_content_div_right">
+          <image src="/images/imgs/xiugai002.png" alt="修改" style='width:15px;height:18px;'></image>
+        </view>
+      </view>
+    </view>
+    <view class='_arrow' bindtap='fn_up'>
+      <image src="/images/imgs/ArrowUp002.png" alt="向下展示更多"></image>
+    </view>
+  </view>
+  <!-- 贷款方案 -->
+  <view class='_daiKuan'>
+    <view class="_title" bindtap="fnjingrongyinhang">
+      {{yinronyinhangTitle}}
+    </view>
+
+    <view class="_title2">
+      <view class="left" bindtap="leftArrow">
+        <image src="/images/imgs/leftArrow001.png" alt="左滑动" style='width:9px;height:16px;'></image>
+      </view>
+      <view wx:if="{{daikuantitle}}">
+       {{daikuantitle}}
+      </view>
+      <view class="right" bindtap="rightArrow">
+        <image src="/images/imgs/rightArrow002.png" alt="右滑动" style='width:9px;height:16px;'></image>
+      </view>
+    </view>
+  </view>
+  <!--遮罩层-->
+  <view class="list-mask" wx:if="{{listMask}}" bindtap="fnlistMask"></view>
+  <!--两种贷款方案-->
+  <view class="yinhangjinrong" wx:if="{{listMask}}">
+    <view class="title">贷款方案</view>
+    <view class="jinrong {{jinronyinhangIndex ==0?'isyinghangActive':'isnotyinhangActive'}}" bindtap="fnjinrong" data-text="宝马金融" data-index="0">宝马金融</view>
+    <view class="yinhang {{jinronyinhangIndex ==1?'isyinghangActive':'isnotyinhangActive'}}" bindtap="fnjinrong" data-text="银行贷款" data-index="1">银行贷款</view>
+  </view>
+  <!-- 首付方案 -->
+  <view class='_shoufu'>
+    <view class="p1">
+      <view class="line"></view>
+      <view class="text">首付比例</view>
+      <view class="text2">{{rangeValue}}%</view>
+    </view>
+    <view class='p2' style="width: 90%;">
+      <view class="slider">
+        <!--<van-slider value="{{rangeValue}}" step="10" bar-height="10px" min="{{rangeOneMin}}" max="{{rangeOneMax}}" bind:change="onChange2"/>-->
+        <slider bindchanging="onChange2" min="{{rangeOneMin}}" max="{{rangeOneMax}}" value="{{rangeValue}}" activeColor='#ffe45f' bindchange="onChange4"/>
+      </view>
+    </view>
+    <view class="p4">
+      <view class="left">
+        <view class="text">点个车为减低首付</view>
+        <view class="number">{{jiandishoufu}}
+          <text style="font-size:12px;">元</text>
+        </view>
+        <view class="text" style="margin-left:5px;">每个月多还</view>
+        <view class="number">{{duohuanqian}}
+          <text style="font-size:12px;">元</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 利率 -->
+  <view class="_lilv" wx:if="{{yinhang}}">
+    <view class="p1">
+      <view class="line"></view>
+      <view class="text">年利率</view>
+    </view>
+    <view class="p2">
+      <input type="digit"  placeholder="请输入利率%" value="{{qishulixi}}" style='width:120px;height:30px;margin-top:16px;font-size:14px;' bindblur="fnyinhang"/>
+    </view>
+  </view>
+  <!-- 月供方式 -->
+  <view class='_yuegong'>
+    <view class="p1">
+      <view class="line"></view>
+      <view class="text">月供方式</view>
+    </view>
+    <!-- 不是银行贷款的 -->
+    <view class="qishu" wx:if="{{!yinhang}}"> '
+      <view class='qishuDiv {{qishuIndex === index?"active":""}}' wx:key='index' wx:for="{{yuegongqishu}}" bindtap="fnqishu" wx:key='*this' data-index="{{index}}" data-text='{{item}}'>
+        {{item||'12'}}期
+      </view>
+    </view>
+    <!--银行贷款的-->
+    <view class="qishu" wx:if="{{yinhang}}"> '
+      <view class='qishuDiv {{qishuIndex === index?"active":""}}' wx:key='index' wx:for="{{yuegongqishu}}" bindtap="fnqishu" wx:key='*this' data-index="{{index}}" data-text='{{item}}'>
+        {{item||'12'}}期
+      </view>
+    </view>
+  </view>
+  <!-- 三種還款方式 -->
+  <view class="_nianduhuankuan">
+    <view class="p1" wx:if="{{xianshiweikuan}}">
+      <view class="line"></view>
+      <view class="text" wx:if="{{listCar && listCar[daikuancurrentIndex] && listCar[daikuancurrentIndex]['productCode'] ==='xxx003'}}">
+        年度递减比例
+      </view>
+      <view class="text" wx:elif="{{listCar && listCar[daikuancurrentIndex] && listCar[daikuancurrentIndex]['productCode'] ==='xxx005'}}">
+        尾款比例
+      </view>
+      <view class="text" wx:elif="{{listCar && listCar[daikuancurrentIndex] && listCar[daikuancurrentIndex]['productCode'] ==='xxx001'}}">
+        尾款比例
+      </view>
+      <view class="text" wx:else>
+        年度还款
+      </view>
+      <view class="text2">
+        {{rangeValue2}}%
+      </view>
+    </view>
+    <view class="p4" wx:if="{{xianshiweikuan}}">
+      <view class="tubiao">
+      </view>
+      <view class="slider">
+        <slider bindchange="onChange3" min="{{rangeTwoMin}}" max="{{rangeTwoMax}}" activeColor='#ffe45f' value="{{rangeValue2}}" bindchanging="onChange5"/>
+        <!--<van-slider  value="{{rangeValue2}}" step="10" bar-height="10px" min="{{rangeTwoMin}}" max="{{rangeTwoMax}}" bind:change="ladongweikuan"/>-->
+      </view>
+    </view>
+  </view>
+  <!-- 购置税的方案 -->
+  <view class="_gouzhishui" wx:if="{{listCar && listCar[daikuancurrentIndex] && listCar[daikuancurrentIndex]['isPurchaseTax'] === 'y'}}">
+    <view class="p1">
+      <view class="line"></view>
+      <view class="text">购置税</view>
+    </view>
+    <view class="text2">
+      <view class="text3">该方案支持购置税</view>
+      <view class='text4'><van-switch checked="{{ischecked}}" bind:change="onChange" /></view>
+    </view>
+  </view>
+</view>

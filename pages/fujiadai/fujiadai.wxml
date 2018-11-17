@@ -1,0 +1,63 @@
+<view class="container">
+  <view class="header">
+    <image src="/images/imgs/fjd_bg.png" class="bg"></image>
+    <view class="fja_header_content">
+      <view class='fja_header_content_child'>
+        贷款金额
+        <view class='p1'>
+          {{daikuanjiner}}
+          <text style='color:rgb(0,0,0);font-size:24rpx;margin-left:-10rpx;'>元</text>
+        </view>
+      </view>
+      <view class='fja_header_content_child'>
+        月供
+        <view class='p1' style="color:#fa2f0e;">
+          {{yuegongjieguo}}
+          <text style="font-size:24rpx;color:#fa2f0e;margin-left:-10rpx;">元</text>
+        </view>
+      </view>
+      <view class="fja_header_content_child">
+        期数
+        <view class='p1'>
+          {{qishu}}
+        </view>
+      </view>
+    </view>
+  </view>
+    <view class='section'>
+      <view class='daikuan'>
+        <view class="daikuan_left">
+          <view class='line'></view>
+          <view class='text'>贷款金额</view>
+        </view>
+        <view class="daikuan_right">
+          <image src='/images/imgs/yuan.png' class='yuan'></image>
+          <input type="number" placeholder='请输入金额' bindfocus="fnFocus" bindblur="fnBlur" style="color:rgb(0,0,0)"></input>
+        </view>
+      </view>
+      <view class="qishu">
+        <view class='qishu_left'>
+          <view class='line'></view>
+          <view class='text'>期数</view>
+        </view>
+        <view class='qishu_right'>
+          <view class='qishu_right_content'>
+            <view class="qishu_right_content_child {{qishuIndex === index ? 'active':''}}" wx:for="{{yuegongqishu}}" wx:key="{{index}}" catchtap='getIndex' data-text="{{item}}" data-index='{{index}}'>
+              {{item}}期
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='bg'></view>
+      <image src='/images/imgs/fooder_bg.png' class='fooder'></image>
+      <image src='/images/imgs/fooder_bg2.png' class='fooder2'></image>
+    </view>
+   <!-- <view class="tabBar">
+    <navigator class="left {{chooseFananIndex == 0? 'active':''}}" catchtap="chooseFanan" data-index="0" wx:key="0" url='/pages/cars/cars'
+    
+    >车贷计算器</navigator>
+    <navigator class="right {{chooseFananIndex == 1? 'active':''}}" catchtap="chooseFanan" data-index="1" wx:key="1" url='/pages/fujiadai/fujiadai'
+    
+    >附加贷计算器</navigator>
+  </view> -->
+</view>

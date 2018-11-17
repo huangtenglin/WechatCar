@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "点个车报价器",
+  "navigationBarTextStyle": "fff",
+  "navigationBarBackgroundColor": "#111",
+  "usingComponents": {
+    "van-slider": "/dist/slider/index",
+    "van-switch": "/dist/switch/index"
+  }
+}

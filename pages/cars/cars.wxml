@@ -1,0 +1,37 @@
+<!--pages/cars/cars.wxml-->
+<view style="position:relative;height:100%;">
+  <view wx:for="{{list}}"  wx:key="*this" wx:for-index="index1" wx:for-item="itemOne">
+    <view class="_header_title">
+      <view class="text">{{itemOne.productName}}</view>
+    </view>
+    <view class="_section" wx:for="{{itemOne.childCarProductConfigDto}}" wx:key="*this" wx:for-item="itemtwo" wx:for-index="index2">
+      <view class="_baoMaCar" data-index1="{{index1}}" data-index2="{{index2}}" bindtap="leibiaozhangkai" data-itemtwo="{{itemtwo}}">
+        <view class="_baoMaCarTitle">{{itemtwo.productName}}</view>
+        <view class="_baoMaCarArrow">
+          <image wx:if="{{isiTemTwo===true}}" src="/images/imgs/ArrowUp.png" alt="更多"></image>
+          <image wx:else src="/images/imgs/ArrowDown.png" alt="更多"></image>
+        </view>
+      </view>
+      <view id='_baoMaCarChildBox' data-index2="{{index}}">
+        <view class="_baoMaCarChildBox" wx:for="{{itemtwo.childCarProductConfigDto}}" wx:key="*this" wx:for-item="itemthree" wx:if="{{itemtwo.isShow}}">
+          <view class="_baoMaCarChild" bindtap="getDetail" data-itemthree="{{itemthree}}">
+            {{itemthree.productName}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- <view class="list-mask" wx:if="{{listMask}}" bindtap='listMaskFalse'></view>
+  <view class="youhuijia" wx:if="{{listMask}}">
+    <view class="title">优惠报价</view>
+    <view class="shuru">
+      <input type="number" class="input" placeholder='请输入优惠报价，无则点击确认' name="shurujiage" bindfocus='clear' bindblur='fill' value="{{inputValue}}" />
+    </view>
+    <button type="default" bindtap="toHome">确认</button>
+  </view> -->
+  <!-- <view class="tabBar">
+    <navigator class="left {{chooseFananIndex == 0? 'active':''}}" catchtap="chooseFanan" data-index="0" wx:key="0" url='/pages/cars/cars'>车贷计算器</navigator>
+    <navigator class="right {{chooseFananIndex == 1? 'active':''}}" catchtap="chooseFanan" data-index="1" wx:key="1" url='/pages/fujiadai/fujiadai'
+    >附加贷计算器</navigator>
+  </view> -->
+</view>
